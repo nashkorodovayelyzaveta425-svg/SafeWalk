@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeWalk</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#111;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+color:white;
+}
+
+.phone{
+width:360px;
+height:700px;
+background:#000;
+border-radius:30px;
+overflow:hidden;
+position:relative;
+box-shadow:0 0 30px black;
+}
+
+.screen{
+display:none;
+height:100%;
+padding:20px;
+box-sizing:border-box;
+}
+
+.active{
+display:block;
+}
+
+h1{
+text-align:center;
+}
+
+button{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:none;
+border-radius:10px;
+font-size:16px;
+}
+
+.green{
+background:#18a558;
+color:white;
+}
+
+.red{
+background:#e53935;
+color:white;
+}
+
+input{
+width:100%;
+padding:10px;
+margin-top:10px;
+border-radius:10px;
+border:none;
+}
+
+.map{
+background:#1c1c1c;
+height:300px;
+border-radius:15px;
+margin-top:20px;
+display:flex;
+justify-content:center;
+align-items:center;
+color:#888;
+}
+
+.menu{
+position:absolute;
+bottom:0;
+left:0;
+right:0;
+background:#111;
+display:flex;
+justify-content:space-around;
+padding:10px;
+border-top:1px solid #333;
+}
+
+.menu button{
+width:auto;
+background:none;
+color:white;
+font-size:14px;
+}
+
+.contact{
+background:#1b1b1b;
+padding:10px;
+margin-top:10px;
+border-radius:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="phone">
+
+<!-- Реєстрація -->
+<div id="register" class="screen active">
+
+<h1>SafeWalk</h1>
+
+<input placeholder="Ім'я">
+
+<input placeholder="Email">
+
+<input placeholder="Пароль" type="password">
+
+<button class="green" onclick="showScreen('login')">
+Реєстрація
+</button>
+
+<button onclick="showScreen('login')">
+Вже є акаунт? Увійти
+</button>
+
+</div>
+
+
+<!-- Вхід -->
+<div id="login" class="screen">
+
+<h1>Вхід</h1>
+
+<input placeholder="Email">
+
+<input placeholder="Пароль" type="password">
+
+<button class="green" onclick="showScreen('route')">
+Увійти
+</button>
+
+</div>
+
+
+<!-- Маршрут -->
+<div id="route" class="screen">
+
+<h2>Поділись маршрутом</h2>
+
+<div class="map">
+<iframe
+width="100%"
+height="100%"
+style="border:0;border-radius:15px"
+loading="lazy"
+allowfullscreen
+src="https://maps.google.com/maps?q=Cherkasy%20Ukraine&t=&z=13&ie=UTF8&iwloc=&output=embed">
+</iframe>
+</div>
+
+<button class="green">
+Поділитися маршрутом
+</button>
+
+<button class="red" onclick="showScreen('sos')">
+SOS Надіслати
+</button>
+
+<div class="menu">
+<button onclick="showScreen('route')">Маршрут</button>
+<button onclick="showScreen('safe')">Безпека</button>
+<button onclick="showScreen('contacts')">Контакти</button>
+</div>
+
+</div>
+
+
+<!-- SOS -->
+<div id="sos" class="screen">
+
+<h1>SOS</h1>
+
+<p style="text-align:center">
+Сигнал тривоги надіслано вашим контактам
+</p>
+
+<button class="red">
+Відмінити сигнал
+</button>
+
+<div class="menu">
+<button onclick="showScreen('route')">Маршрут</button>
+<button onclick="showScreen('safe')">Безпека</button>
+<button onclick="showScreen('contacts')">Контакти</button>
+</div>
+
+</div>
+
+
+<!-- Безпечний маршрут -->
+<div id="safe" class="screen">
+
+<h2>Безпечний маршрут</h2>
+
+<div class="map">
+<iframe
+width="100%"
+height="100%"
+style="border:0;border-radius:15px"
+loading="lazy"
+allowfullscreen
+src="https://maps.google.com/maps?q=Cherkasy%20Ukraine&t=&z=13&ie=UTF8&iwloc=&output=embed">
+</iframe>
+</div>
+
+<button class="green">
+Обійти зону
+</button>
+
+<button>
+Повідомити
+</button>
+
+<div class="menu">
+<button onclick="showScreen('route')">Маршрут</button>
+<button onclick="showScreen('safe')">Безпека</button>
+<button onclick="showScreen('contacts')">Контакти</button>
+</div>
+
+</div>
+
+
+<!-- Контакти -->
+<div id="contacts" class="screen">
+
+<h2>Мої контакти</h2>
+
+<div class="contact">
+Марина  
+<br>
++380 96 123 45 67
+</div>
+
+<div class="contact">
+Олег  
+<br>
++380 67 123 45 67
+</div>
+
+<div class="contact">
+Мама  
+<br>
++380 93 765 43 21
+</div>
+
+<button class="green">
+Додати контакт
+</button>
+
+<div class="menu">
+<button onclick="showScreen('route')">Маршрут</button>
+<button onclick="showScreen('safe')">Безпека</button>
+<button onclick="showScreen('contacts')">Контакти</button>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function showScreen(id){
+
+let screens=document.querySelectorAll(".screen")
+
+screens.forEach(s=>s.classList.remove("active"))
+
+document.getElementById(id).classList.add("active")
+
+}
+
+</script>
+
+</body>
+</html>
